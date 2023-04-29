@@ -1,0 +1,191 @@
+/* Reset styles */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+ 
+ /* Header styles */
+ header {
+   background-color: #0b1573;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   z-index: 999;
+   border-bottom: 2px gray solid;
+ }
+ 
+ .imageTop {
+   width: 40%;
+   height: auto;
+   margin: 5px 0px -10px;
+   display: flex;
+   align-self: center;
+   box-shadow: 5px 8px 5px #0b1573;
+   border: 2px solid #01030e;
+ }
+
+ .title {
+   width: fit-content;
+   height: auto;
+   display: flex;
+   justify-content: center;
+   text-align: center;
+   align-self: center;
+   margin: 40px 0px 0px;
+   padding: 10px;
+   background-color: #05021e6c;
+   border-radius: 5px;
+   border: 0px solid #0b1573;
+   color: whitesmoke;
+   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-size: 20px;
+   line-height: 28px;
+ }
+
+ .subtitle {
+   display: flex;
+   justify-content: center;
+   text-align: center;
+   align-self: center;
+   margin: 0px 0px 0px;
+   padding: 10px;
+   background-color: #05021e6c;
+   border-radius: 5px;
+   border: 0px solid #0b1573;
+   color: whitesmoke;
+   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-size: 12px;
+   line-height: 28px;
+ }
+
+ .imageTopCaption {
+   width: 40%;
+   height: auto;
+   display: flex;
+   align-self: center;
+   margin: 0 auto;
+   padding: 5px;
+   background-color: #05021e;
+   border-radius: 5px;
+   border: 0px solid #0b1573;
+   color: whitesmoke;
+   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
+   font-size: 10px;
+   
+ }
+
+ .aboutBio {
+   width: 60%;
+   height: auto;
+   display: flex;
+   align-self: center;
+   margin: 0px 0px 60px;
+   padding: 15px;
+   background-color: #decdaf;
+   border-radius: 10px;
+   border: 2px solid #0b1573;
+   box-shadow: 5px 5px 5px #0b1573;
+   line-height: 28px;
+   font-size: 14px;
+ }
+
+#imageLoader {
+   width: 50%;
+   height: auto;
+   display: flex;
+   align-self: center;
+   margin: 0px 0px 10px 0px;
+   padding: 15px;
+   background-color: #decdaf;
+   border-radius: 10px;
+   border: 2px solid #0b1573;
+   box-shadow: 5px 5px 5px #0b1573;
+   line-height: 28px;
+   font-size: 14px;
+
+}
+
+#image {
+   margin: 50px 0px -10px;
+   display: flex;
+   align-self: center;
+   box-shadow: 5px 8px 5px #0b1573;
+   border: 2px solid #01030e;
+}
+
+#output {
+   width: 40%;
+   height: auto;
+   margin: 0px 0px 0px;
+   display: flex;
+   align-self: center;
+   justify-content: center;
+   box-shadow: 5px 8px 5px #0b1573;
+   border: 0px solid #01030e;
+   color:aqua
+}
+
+
+ nav ul {
+   display: flex;
+   justify-content: left;
+   list-style: none;
+   margin: 0;
+   padding: 14px;
+   gap: 12px;
+ }
+ 
+ nav li {
+   margin-right: 10px;
+ }
+ 
+ nav a:hover {
+   text-decoration: underline;
+ }
+ nav a {
+   color: #cfd8e5;
+   text-decoration: none;
+   font-size: 20px;
+ }
+ 
+ /* Logo styles */
+ .logo {
+   width: 200px;
+   height: 200px;
+   margin: 0 auto;
+   background-image: url(logo.png);
+   background-size: cover;
+   animation: fadein 2s;
+ }
+ 
+ @keyframes fadein {
+   from { opacity: 0; }
+   to   { opacity: 1; }
+ }
+ 
+ /* Main styles */
+ main {
+   height: 100vh;
+   width: auto;
+   background-image: linear-gradient(to bottom, #071e4c, #000);
+   padding: 16px;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   gap: 10px;
+ }
+ 
+ /* Footer styles */
+ footer {
+   background-color: #decdaf;
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   text-align: center;
+   padding: 10px;
+ }
+ 
