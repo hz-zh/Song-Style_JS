@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2018 Google LLC. All Rights Reserved.
+ * Copyright 2023 Henry Zelenak. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,14 @@
  * ==============================================================================
  */
 
-// This tiny example illustrates how little code is necessary build /
 // train / predict from a model in TensorFlow.js.  Edit this code
 // and refresh the index.html to quickly explore the API.
 
 
 // Tiny TFJS train / predict example.
 async function run() {
-  // Create a simple model.
- 
-
-  const imageLoader = document.getElementById('imageLoader');
+  
+  const imageLoader = document.getElementById('file-upload');
   const image = document.getElementById('image');
 
   imageLoader.addEventListener('change', e => {
@@ -39,7 +36,9 @@ async function run() {
         //const imageElement = document.getElementById('image');
         console.log(image)
         const imageTensor = tf.browser.fromPixels(image).toFloat().resizeNearestNeighbor([128, 128]).div(255.0).expandDims(0);
-
+        // set the first dimension of imageTensor to -1
+        imageTensor[0] = -1
+        console.log(imageTensor)
         tensor = tf.cast(imageTensor, 'float32')
         //console.log(tensor)
 
@@ -47,16 +46,15 @@ async function run() {
       };
       img.src = reader.result;
       image.src = reader.result;
-    };
+    };  
     reader.readAsDataURL(file);
 });
-
 }
 
 run();
 
 async function predict(tensor) {
-  
+  tf.ENV.set("WEBGL_PACK", false);
   const model = await tf.loadGraphModel('./image_models/model_02/model.json');
  // tfvis.show.modelSummary({name: 'Model Summary'}, model);
 // test to see if the model is loaded properly
@@ -73,14 +71,14 @@ async function predict(tensor) {
     console.log(predictions[i])
   }
   // reverse the order of predictions
- //predictions.reverse();
-  console.log(predictionArr)
+  //predictions.reverse();
+  //console.log(predictionArr)
 
   //find index of the highest 3 values in predictions
   //let maxPrediction = predictions.indexOf(Math.max(...predictions));
   const maxPredictions = findMaxPredictions(predictions);
   //maxPredictions.reverse()
- console.log(maxPredictions);
+  console.log(maxPredictions);
   const classNames = ["Arched_Eyebrows", "Bags_Under_Eyes", "Bangs", "Black_Hair", "Blond_Hair", "Brown_Hair", "Eyeglasses", "Gray_Hair", "Heavy_Makeup", "High_Cheekbones", "Mouth_Slightly_Open", "Mustache", "Narrow_Eyes", "Rosy_Cheeks", "Smiling", "Straight_Hair", "Wavy_Hair", "Wearing_Earrings", "Wearing_Hat", "Wearing_Lipstick", "Wearing_Necklace"];
   //const predictedClassName = classNames[maxPrediction];
   //console.log(predictedClassName, ": ", predictions[maxPrediction]);
@@ -89,7 +87,9 @@ async function predict(tensor) {
     predictedClassNames.push(classNames[maxPredictions[i]]);
 }
   const outputText = document.getElementById('output')
-  outputText.innerText = predictedClassNames
+  /// set outputText.innerText to be all entries in predictedClassNames with a comma and a space between each
+  outputText.innerText = predictedClassNames.join(', ');
+  //outputText.innerText = predictedClassNames
 }
 
 function findMaxPredictions(arr) {
