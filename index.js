@@ -16,11 +16,8 @@
  * ==============================================================================
  */
 
-// train / predict from a model in TensorFlow.js.  Edit this code
-// and refresh the index.html to quickly explore the API.
 
-
-// Tiny TFJS train / predict example.
+import * as tf from './node_modules/@tensorflow/tfjs';
 async function run() {
   
   const imageLoader = document.getElementById('file-upload');
@@ -34,33 +31,35 @@ async function run() {
       img.onload = () => {
         // Load the image
         //const imageElement = document.getElementById('image');
-        console.log(image)
-        const imageTensor = tf.browser.fromPixels(image).toFloat().resizeNearestNeighbor([128, 128]).div(255.0).expandDims(0);
+        //console.log(image)
+        image.src = reader.result;
+        const imageTensor = tf.browser.fromPixels(image).toFloat().resizeBilinear([128, 128]).div(255.0).expandDims(0);
         // set the first dimension of imageTensor to -1
         imageTensor[0] = -1
-        console.log(imageTensor)
-        tensor = tf.cast(imageTensor, 'float32')
-        //console.log(tensor)
+        //console.log(imageTensor)
+       // tensor = tf.cast(imageTensor, 'float32')
+        //console.log(imageTensor)
 
-       predict(tensor)
+       predict(imageTensor)
       };
       img.src = reader.result;
-      image.src = reader.result;
+      //image.src = reader.result;
     };  
     reader.readAsDataURL(file);
-});
-}
+}); 
 
+}
 run();
 
 async function predict(tensor) {
+  
   tf.ENV.set("WEBGL_PACK", false);
   const model = await tf.loadGraphModel('./image_models/model_02/model.json');
  // tfvis.show.modelSummary({name: 'Model Summary'}, model);
 // test to see if the model is loaded properly
-//console.log(model)
+//console.log(model.summary())
   const output = model.predict(tensor, {batchSize: 1}, true);
-  //console.log(output)
+  console.log(output)
   let predictionArr = []
   for (let i = 0; i < output.length; i++) {
     predictionArr.push(output[i].dataSync());
@@ -72,7 +71,7 @@ async function predict(tensor) {
   }
   // reverse the order of predictions
   //predictions.reverse();
-  //console.log(predictionArr)
+  console.log(predictionArr[0][0])
 
   //find index of the highest 3 values in predictions
   //let maxPrediction = predictions.indexOf(Math.max(...predictions));
