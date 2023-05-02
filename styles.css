@@ -132,6 +132,7 @@
    align-self: center;
    box-shadow: 5px 8px 5px #0b1573;
    border: 2px solid #01030e;
+   width: 25%;
 }
 
 #output {
@@ -245,7 +246,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 0px 0px 0px 0px;
+  margin: 30px 0px 10px;
   padding: 0px;
  }
 
@@ -344,7 +345,9 @@ td {
     flex-direction: column;
     gap: 15px;
   }
-
+  #image {
+    width: 80%;
+  }
   /* Set flex-basis and flex-grow for table cells */
   td {
     flex-basis: 50%;
