@@ -27,6 +27,7 @@ explore the API. -->
   <meta charset="UTF-8">
   <title>Song + Style</title>
   <link rel="stylesheet" href="styles.css">
+ 
 </head>
   <body>
     <h4>Song + Style<hr/></h4>
@@ -39,24 +40,30 @@ explore the API. -->
       </nav>
     </header>
     <main>
-      <div class="logo"></div>
-      <div id="output"></div>
-      <label for="file-upload" class="custom-file-upload">
-        <i class="fas fa-cloud-upload-alt"></i> Add File
-      </label>
-      <input type="file" id="file-upload" name="file-upload"/>
-      <!--<canvas id="canvas1" width="128" height="128"></canvas>-->
-      <img id="image" width="auto" height="auto"/>
-      
+      <!--<div class="background-image">-->
+        <div class="logo"></div>
+        <img id="image" width="auto" height="auto">
+        <label for="file-upload" class="custom-file-upload">
+          <i class="fas fa-cloud-upload-alt"></i> Add File
+        </label>
+        <input type="file" id="file-upload" name="file-upload"/>
+        <!--<canvas id="canvas1" width="128" height="128"></canvas>-->
+        <div class="table-container">
+          <table id="outputTable">
+            <thead>
+              <tr>
+                <th>Prediction</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      <!--</div>-->
     </main>
-    <footer>
-      <p>&copy; Henry Zelenak 2023</p>
-    </footer>
-    <script src="dist/bundle.js"></script>
-
-    <!--
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
-    <script src="./index.js" type="module"> </script>-->
+    <script src="./index.js"></script>
   </body>
 </html>
