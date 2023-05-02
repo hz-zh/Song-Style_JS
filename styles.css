@@ -239,7 +239,7 @@
  .left-col {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  
   flex-basis: 50%;
   max-width: fit-content;
   justify-content: center;
@@ -247,7 +247,6 @@
   gap: 10px;
   margin: 0px 0px 0px 0px;
   padding: 0px;
-
  }
 
  .custom-file-upload {
@@ -339,6 +338,11 @@ td {
   .table-container {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  main {
+    flex-direction: column;
+    gap: 15px;
   }
 
   /* Set flex-basis and flex-grow for table cells */
