@@ -41,13 +41,12 @@ explore the API. -->
     </header>
     <main>
       <!--<div class="background-image">-->
-        <div class="logo"></div>
-        <img id="image" width="65%" height="auto" max-width="50%">
+      <div class="left-col">
+        <img src="none" class="logo">
+        <input type="file" id="file-upload" name="file-upload"/>
         <label for="file-upload" class="custom-file-upload">
           <i class="fas fa-cloud-upload-alt"></i> Add File
         </label>
-        <input type="file" id="file-upload" name="file-upload"/>
-        <!--<canvas id="canvas1" width="128" height="128"></canvas>-->
         <div class="table-container">
           <table id="outputTable">
             <thead>
@@ -60,6 +59,9 @@ explore the API. -->
             </tbody>
           </table>
         </div>
+      </div>
+      <img id="image" width="25%" height="auto" max-width="50%" display="none">
+        <!--<canvas id="canvas1" width="128" height="128"></canvas>-->
       <!--</div>-->
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>

@@ -33,6 +33,7 @@ function run() {
         //const imageElement = document.getElementById('image');
         //console.log(image)
         image.src = reader.result;
+        image.style.display="flex"
         const imageTensor = tf.browser.fromPixels(image).toFloat().resizeNearestNeighbor([128, 128]).div(255.0).expandDims(0);
         // set the first dimension of imageTensor to -1
         //imageTensor[0] = -1
