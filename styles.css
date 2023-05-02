@@ -240,13 +240,12 @@
  .left-col {
   display: flex;
   flex-direction: column;
-  
   flex-basis: 50%;
   max-width: fit-content;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 30px 0px 10px;
+  margin: 10px 0px 10px;
   padding: 0px;
  }
 
@@ -348,6 +347,11 @@ td {
   #image {
     width: 80%;
     max-width: 80%;
+    margin-bottom: 50px;
+  }
+
+  .left-col {
+    margin: 50px 0px 0px;
   }
   /* Set flex-basis and flex-grow for table cells */
   td {
