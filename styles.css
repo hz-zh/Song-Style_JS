@@ -334,7 +334,7 @@ td {
 }
 
 /* Media queries for smaller screens */
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   /* Set display to flex and flex-wrap to wrap */
   .table-container {
     display: flex;
@@ -347,6 +347,7 @@ td {
   }
   #image {
     width: 80%;
+    max-width: 80%;
   }
   /* Set flex-basis and flex-grow for table cells */
   td {
