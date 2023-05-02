@@ -35,7 +35,7 @@
  }
  
  .imageTop {
-   width: 40%;
+   width: 30%;
    height: auto;
    margin: 5px 0px -10px;
    display: flex;
@@ -79,7 +79,7 @@
  }
 
  .imageTopCaption {
-   width: 40%;
+   width: 30%;
    height: fit-content;
    display: flex;
    align-self: center;
