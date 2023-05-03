@@ -134,6 +134,8 @@
    box-shadow: 5px 8px 5px #0b1573;
    border: 2px solid #01030e;
    flex-basis: 25%;
+   opacity: 0;
+   transition: opacity 1s ease-in-out;
 }
 
 #output {
@@ -299,8 +301,18 @@
 /* Styles for the table container */
 .table-container {
   display: flex;
-  flex-wrap: wrap;
+  opacity: 0;
   margin: 0px 0px 0px;
+  box-shadow: 5px 8px 5px #0b1573;
+  transition-property: opacity ;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.show {
+  display: flex;
+  flex-wrap: wrap;
+  
 }
 
 th {
@@ -374,4 +386,26 @@ td {
   padding: 0px;
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+.loading-wheel {
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  margin-top: 20px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 

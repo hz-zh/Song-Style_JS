@@ -19,11 +19,14 @@
 
 //import * as tf from './node_modules/@tensorflow/tfjs';
 function run() {
-  
+  const tableContainer = document.getElementById('table-container');
   const imageLoader = document.getElementById('file-upload');
   const image = document.getElementById('image');
 
   imageLoader.addEventListener('change', e => {
+    tableContainer.style.opacity = 0;
+    tableContainer.classList.remove('show');
+
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
@@ -33,7 +36,8 @@ function run() {
         //const imageElement = document.getElementById('image');
         //console.log(image)
         image.src = reader.result;
-        image.style.display="flex"
+        // image opacity to 100%
+        image.style.opacity = 1;
         const imageTensor = tf.browser.fromPixels(image).toFloat().resizeNearestNeighbor([128, 128]).div(255.0).expandDims(0);
         // set the first dimension of imageTensor to -1
         //imageTensor[0] = -1
@@ -56,12 +60,14 @@ run();
 
 
 async function predict(tensor) {
+   // create a loading wheel animation
+  const loadingWheel = document.createElement("div");
+  loadingWheel.classList.add("loading-wheel");
+  document.querySelector(".left-col").appendChild(loadingWheel);
   
   tf.ENV.set("WEBGL_PACK", false);
   const model = await tf.loadGraphModel('./image_models/model_02/model.json');
- // tfvis.show.modelSummary({name: 'Model Summary'}, model);
-// test to see if the model is loaded properly
-//console.log(model.summary())
+  
   const output = model.predict(tensor, {batchSize: 1}, true);
   console.log(output)
   let predictionArr = []
@@ -73,6 +79,7 @@ async function predict(tensor) {
     predictions.push(predictionArr[i][0]);
     console.log(predictions[i])
   }
+  loadingWheel.remove();
   outputMaker(predictions);
 }
 
@@ -87,6 +94,8 @@ function outputMaker(predictions) {
   /*const classNames = ["Arched_Eyebrows", "Bags_Under_Eyes", "Bangs", "Black_Hair", "Blond_Hair", "Brown_Hair", "Eyeglasses", "Gray_Hair", "Heavy_Makeup", "High_Cheekbones", "Mouth_Slightly_Open", "Mustache", "Narrow_Eyes", "Rosy_Cheeks", "Smiling", "Straight_Hair", "Wavy_Hair", "Wearing_Earrings", "Wearing_Hat", "Wearing_Lipstick", "Wearing_Necklace"];*/
   // new class order
   const classNames = ["Straight Hair", "High Cheekbones", "Mustache", "Wearing Hat", "Wavy Hair", "Eyeglasses", "Rosy Cheeks", "Mouth Slightly Open", "Bags Under Eyes", "Black Hair", "Wearing Lipstick", "Narrow Eyes", "Wearing Earrings", "Wearing Necklace", "Gray Hair", "Arched Eyebrows", "Smiling", "Bangs", "Heavy Makeup", "Brown Hair", "Blond Hair"];
+
+const tableContainer = document.getElementById('table-container');
 
   const outputTable = document.getElementById('outputTable');
       const tbody = outputTable.getElementsByTagName('tbody')[0];
@@ -108,23 +117,8 @@ function outputMaker(predictions) {
         row.appendChild(percentageCell);
         tbody.appendChild(row);
       }
-    
-  /*
-  const predictedClassNames = [];
-  for (let i = 0; i < maxPredictions.length; i++) {
-    predictedClassNames.push(classNames[maxPredictions[i]]);
-  }
-
-  const outputText = document.getElementById('output')
-  // set outputText.innerText to be all entries in predictedClassNames followed by maxPredictions[i] with a comma and a space between each
-  console.log(predictions[0])
-
-  let outputArr = [];
-  for (let i = 0; i < 5; i++) {
-    outputArr.push(predictedClassNames[i] + ": " +  (predictions[maxPredictions[i]] * 100).toFixed(2) + "%");
-  }
-  outputText.innerText = outputArr.join(", "); 
-  */
+     tableContainer.style.opacity = 1;
+     tableContainer.classList.add('show');    
 }
 
 
