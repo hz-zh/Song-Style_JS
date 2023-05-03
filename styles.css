@@ -383,8 +383,9 @@ td {
   max-width: fit-content;
   justify-content: center;
   align-items: center;
+  line-height: 26px;
   gap: 10px;
-  margin: 10px 0px 10px;
+  margin: 10px 12px 10px;
   padding: 0px;
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
