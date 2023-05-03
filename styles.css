@@ -260,7 +260,11 @@
   font-weight: bold;
   color: #fff;
   background-color: #2196F3;
+  background-image: repeating-linear-gradient(
+    rgba(100, 248, 196, 0.694),
+    rgb(5, 5, 85)); 
   border-radius: 5px;
+  border:rgb(5, 5, 85) solid 2px;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease;
@@ -269,6 +273,10 @@
 
 .custom-file-upload:hover {
   background-color: #1976D2;
+  background-image: repeating-linear-gradient(
+    rgb(5, 5, 85),
+    rgba(100, 248, 196, 0.694));
+    transition: all .5s; 
 }
 
 #file-upload {
@@ -277,20 +285,6 @@
 
 #file-upload:not(:disabled) + .custom-file-upload {
   cursor: pointer;
-}
-
-#file-upload:not(:disabled):focus + .custom-file-upload {
-  outline: 1px dotted #000;
-  outline: -webkit-focus-ring-color auto 5px;
-}
-
-#file-upload:focus + .custom-file-upload:before {
-  outline: 1px dotted #000;
-  outline: -webkit-focus-ring-color auto 5px;
-}
-
-#file-upload:valid + .custom-file-upload:before {
-  content: attr(data-file-name);
 }
 
 .custom-file-upload i {
@@ -358,7 +352,8 @@ td {
 
   main {
     flex-direction: column;
-    gap: 15px;
+    gap: 25px;
+    justify-content: flex-start;
   }
   #image {
     width: 80%;
@@ -374,6 +369,10 @@ td {
     flex-basis: 50%;
     flex-grow: 1;
     padding: 8px;
+  }
+
+  .custom-file-upload {
+    font-size: 20px;
   }
 }
 
