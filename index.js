@@ -26,6 +26,7 @@ function run() {
   imageLoader.addEventListener('change', e => {
     tableContainer.style.opacity = 0;
     tableContainer.classList.remove('show');
+    image.style.opacity = 0;
 
     const file = e.target.files[0];
     const reader = new FileReader();
