@@ -33,30 +33,32 @@ limitations under the License.
       </nav>
     </header>
     <main>
-      <!--<div class="background-image">-->
-      <div class="left-col">
-        <p class="instructions">1. Click "Add Image" and take a selfie of your head and shoulders.<br> 2. Wait for predictions to appear!</p>
-        <img src="none" class="logo">
-        <input type="file" id="file-upload" name="file-upload"/>
-        <label for="file-upload" class="custom-file-upload">
-          <i class="fas fa-cloud-upload-alt"></i> Add Image
-        </label>
-        <div class="table-container" id="table-container">
-          <table id="outputTable">
-            <thead>
-              <tr>
-                <th>Prediction</th>
-                <th>Percentage</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
+      <div class="topRow">
+        <div class="left-col">
+          <p class="instructions">1. Click "Add Image" and take a selfie of your head and shoulders.<br> 2. Wait for predictions to appear!</p>
+          <img src="none" class="logo">
+          <input type="file" id="file-upload" name="file-upload"/>
+          <label for="file-upload" class="custom-file-upload">
+            <i class="fas fa-cloud-upload-alt"></i> Add Image
+          </label>
+          <div class="table-container" id="table-container">
+            <table id="outputTable">
+              <thead>
+                <tr>
+                  <th>Prediction</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <img id="image" width="25%" height="auto" max-width="50%">
+          <!--<canvas id="canvas1" width="128" height="128"></canvas>-->
+        <!--</div>-->
       </div>
-      <img id="image" width="25%" height="auto" max-width="50%">
-        <!--<canvas id="canvas1" width="128" height="128"></canvas>-->
-      <!--</div>-->
+      <p class="copy">Copyright Henry Zelenak 2023</p>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>

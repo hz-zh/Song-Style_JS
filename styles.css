@@ -104,8 +104,9 @@
    width: 60%;
    height: fit-content;
    display: flex;
+   flex-direction: column;
    align-self: center;
-   margin: 0px 0px 200px;
+   margin: 0px 0px 20px;
    padding: 15px;
    background-color: #decdaf;
    border-radius: 10px;
@@ -214,6 +215,7 @@
   margin: 0px;
   padding: 0px;
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
@@ -374,6 +376,14 @@ td {
   .custom-file-upload {
     font-size: 20px;
   }
+
+  .aboutBio {
+    width: 90%;
+  }
+
+  .topRow {
+    flex-direction: column !important;
+  }
 }
 
 .instructions {
@@ -439,4 +449,21 @@ td {
   padding: 0px;
 }
 
+.copy {
+  align-self: flex-start;
+  color: #007bff91;
+  font-size: 16px;
+  margin-bottom: 16px;
+  margin-left: 100px;
+
+}
+
+.topRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
 
