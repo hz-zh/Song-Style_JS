@@ -16,8 +16,6 @@
  * ==============================================================================
  */
 
-
-//import * as tf from './node_modules/@tensorflow/tfjs';
 function run() {
   const tableContainer = document.getElementById('table-container');
   const imageLoader = document.getElementById('file-upload');
