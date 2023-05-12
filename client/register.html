@@ -8,8 +8,6 @@
   <body>
     <h1>User Registration</h1>
     <form id="registration-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required><br>
 
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" required><br>
@@ -29,7 +27,6 @@
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const name = form.elements.name.value;
         const email = form.elements.email.value;
         const username = form.elements.username.value;
         const password = form.elements.password.value;
@@ -39,7 +36,7 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name, email, username, password })
+          body: JSON.stringify({ email, username, password })
         });
 
         if (response.ok) {
