@@ -3,13 +3,12 @@ dotenv.config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import db from './db.js';
-const app = express();
+import bcrypt from 'bcrypt';
 import cors from 'cors';
+
 
 const createUser = async (username, password, email) => {
   try {
-    const usersCollection = db.collection('users');
-  
     const userSchema = new db.Schema({
       username: { type: String, required: true },
       password: { type: String, required: true },
@@ -23,35 +22,42 @@ const createUser = async (username, password, email) => {
       email: email
     });
 
-    const result = await usersCollection.insertOne(user);
-    const userId = result.insertedId;
-    return userId;
+    // check to see if user already exists in the collection 'users'
+    const usernameExists = await User.findOne({ username });
+    const emailExists = await User.findOne({ email });
+    if (usernameExists) {
+      throw new Error('Username already exists, please try again');
+    }
+    else if (emailExists) {
+      throw new Error('Email already exists, please try again');
+    }
+    else await user.save();
+
   } catch (error) {
-    console.error('Error creating user account: ', error);
-    throw new Error('Internal server error');
+    console.error('Error creating user account in creation:', error);
+    // delete User model
+    delete db.models['User'];
+    throw error;
   }
 };
 
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
-app.post('register', async (req, res) => {
+app.post('/api', async (req, res) => {
   try {
     const { username, password, email } = req.body;
-
-    const userId = await createUser(username, password, email);
-    // send response as a JSON
-    res.json({
-      success: true,
-      message: 'User account created',
-      userId: userId
-    });
+    // write an async function to encrypt the password
+    const encryptPassword = await bcrypt.hash(password, 10);
+    const userId = await createUser(username, encryptPassword, email);
+  
     res.status(201).json({ success: true, message: 'User account created' });
-  } catch (err) {
-    console.error('Error creating user account: ', err);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+  } catch (errr) {
+    console.error('Error creating user account: ', errr);
+    res.status(500).json({ success: false, message: errr.toString()});
   }
 });
 

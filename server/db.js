@@ -1,13 +1,11 @@
-import pkg from 'mongoose';
-const { connect, connection } = pkg;
-// change from require to import
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
 //require('dotenv').config();
 const mongoUrl = process.env.MONGO_URL;
 
-const con = connect(mongoUrl, {
+mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
@@ -16,8 +14,8 @@ const con = connect(mongoUrl, {
   console.error('Error connecting to MongoDB: ', err);
 });
 
-connection.on('error', (err) => {
+mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error: ', err);
 });
 
-export default con;
+export default mongoose;
