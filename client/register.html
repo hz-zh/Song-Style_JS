@@ -31,20 +31,21 @@
         const username = form.elements.username.value;
         const password = form.elements.password.value;
 
-        const response = await fetch('register', {
+        const response = await fetch('http://localhost:5555/api', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ email, username, password })
         });
-      //  const data = await response.json();
-       // console.log('User ID: ' + data);
+        const json = await response.json();
+        console.log(json);
+
         if (response.ok) {
           alert('Registration successful!');
           //window.location.href = '/login.html';
         } else {
-          alert('Registration failed. Please try again.');
+          alert(json.message.toString());
         }
       });
     </script>
