@@ -18,6 +18,10 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required><br>
 
+    // add password confirmation
+    <label for="passwordCon">Confirm Password:</label>
+    <input type="password" id="passwordCon" name="passwordCon" required><br>
+
       <input type="submit" value="Register">
     </form>
 
@@ -26,6 +30,12 @@
 
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
+
+        // compare password and passwordCon here
+        if (form.elements.password.value != form.elements.passwordCon.value) {
+          alert('Passwords do not match!');
+          return;
+        }
 
         const email = form.elements.email.value;
         const username = form.elements.username.value;
@@ -43,7 +53,7 @@
 
         if (response.ok) {
           alert('Registration successful!');
-          //window.location.href = '/login.html';
+          window.location.href = '/login.html';
         } else {
           alert(json.message.toString());
         }
