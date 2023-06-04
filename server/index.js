@@ -35,7 +35,6 @@ const createUser = async (username, password, email) => {
 
   } catch (error) {
     console.error('Error creating user account in creation:', error);
-    // delete User model
     delete db.models['User'];
     throw error;
   }
@@ -50,7 +49,6 @@ app.use(cors());
 app.post('/api', async (req, res) => {
   try {
     const { username, password, email } = req.body;
-    // write an async function to encrypt the password
     const encryptPassword = await bcrypt.hash(password, 10);
     const userId = await createUser(username, encryptPassword, email);
   
