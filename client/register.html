@@ -3,6 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>User Registration</title>
   </head>
   <body>
@@ -39,7 +40,7 @@
         const username = form.elements.username.value;
         const password = form.elements.password.value;
 
-        const response = await fetch('http://localhost:5555/api', {
+        const response = await fetch('http://localhost:5555/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
