@@ -14,13 +14,13 @@ const createUser = async (username, password, email) => {
        email: { type: String, required: true }
      });
      const User = db.model('User', userSchema);
-     
+    
      const user = new User({
        username: username,
        password: password,
        email: email
      });
- 
+  
      const usernameExists = await User.findOne({ username });
      const emailExists = await User.findOne({ email });
      if (usernameExists) {

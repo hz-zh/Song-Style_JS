@@ -14,19 +14,20 @@ function genJWT(user) {
     return { success: true, token: jwtToken };
 }
 
-async function loginUser(username, password) {
+async function loginUser(usernameOrEmail, password) {
    try {
       const userSchema = new db.Schema({
+         _id: { type: db.Schema.Types.ObjectId, required: true },
          username: { type: String, required: true },
          password: { type: String, required: true },
          email: { type: String, required: true }
        });
       const User = db.model('User', userSchema);
 
-      const user = await User.findOne({ username: username }).select('+password') || await User.findOne({ email: username }).select('+password');
+      const user = await User.findOne({ username: usernameOrEmail }).select('+password') || await User.findOne({ email: usernameOrEmail }).select('+password');
       console.log('Retrieved User:', user);
       if (!user) {
-      throw new Error('Username does not exist');
+      throw new Error('Username or email does not exist');
      }
      const isPasswordValid = bcrypt.compareSync(password, user.password);
      if (!isPasswordValid) {
@@ -35,6 +36,7 @@ async function loginUser(username, password) {
      return genJWT(user);
    } catch (error) {
      console.error('Error logging in user: ', error);
+     delete db.models['User'];
      throw error;
    }
  }
@@ -67,7 +69,7 @@ function login() {
    });
   }
 
-export default  login;
+export default login;
 
 
    
