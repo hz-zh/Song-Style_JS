@@ -33,6 +33,7 @@ async function loginUser(usernameOrEmail, password) {
      if (!isPasswordValid) {
        throw new Error('Password is incorrect');
      }
+
      return genJWT(user);
    } catch (error) {
      console.error('Error logging in user: ', error);
@@ -50,8 +51,18 @@ function login() {
    
    loginApp.post('/login', async (req, res) => {
      try {
-      const { userOrEmail, password } = req.body;
+      const { user, password } = req.body;
+      if (!user || !password) {
+        console.log('User: ' + user + ' Password: ' + password);
+        throw new Error('Username or password is missing');
+      }
       const userId = await loginUser(userOrEmail, password);
+
+      console.log('User: ' + userOrEmail + ' Password: ' + password);
+      console.log('User ID:', userId);
+      console.log('User ID Token:', userId.token);
+      console.log('User ID Success:', userId.success);
+      console.log(':', userId.message);
 
       const jwtToken = userId.token;
       res.cookie('jwt', jwtToken, { httpOnly: true, secure: true });

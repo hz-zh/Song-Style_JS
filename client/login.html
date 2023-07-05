@@ -9,8 +9,7 @@
   <h1>Login</h1>
   <form id="login-form">
     <label for="usernameOrEmail">Username or Email:</label>
-    <!--username or email input with autocomplete attributes-->
-    <input type="text" id="usernameOrEmail" required>
+    <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
     <br>
     <label for="password">Password:</label>
     <input type="password" id="password" required>
@@ -21,35 +20,35 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
    const form = document.getElementById('login-form');
+
    form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const usernameOrEmail = form.elements.usernameOrEmail.value;
-        const password = form.elements.password.value;
 
-      await fetch('http://localhost:5556/login', {
+        const usernameOrEmail = await form.elements.usernameOrEmail.value;
+        const password = await form.elements.password.value;
+
+        
+
+      const response = await fetch('http://localhost:5556/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ usernameOrEmail, password })
-      })
-         .then(response => response.json())
-         .then(json => {
-            if (json.success) {
-               alert('Login successful!');
-               localStorage.setItem('token', json.cookie);
-               window.location.href = '/index.html';
-            } else {
-               alert(json.message.toString());
-               throw new Error(json.message.toString());
-            }
-         })
-         .catch(error => {
-            console.error(error);
-            alert('Login failed! ' + error);
-         });
+      });
+      const json = await response.json();
+        console.log(json);
+        console.log(usernameOrEmail);
+
+        if (response.ok) {
+          alert('login successful!');
+          localStorage.setItem('token', json.cookie);
+          window.location.href = '/index.html';
+        } else {
+          alert('login failed! ' + json.message.toString());
+          throw new Error(json.message.toString());
+        }
       });
   </script>
-  
 </body>
 </html>
