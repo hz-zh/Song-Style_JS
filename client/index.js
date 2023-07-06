@@ -15,6 +15,7 @@
  * limitations under the License.
  * ==============================================================================
  */
+// index.js //
 
 function run() {
   const tableContainer = document.getElementById('table-container');
@@ -52,14 +53,11 @@ function run() {
       //image.src = reader.result;
     };  
     reader.readAsDataURL(file);
-}); 
-
+  }); 
 }
 run();
 
-
 async function predict(tensor) {
-   // create a loading wheel animation
   const loadingWheel = document.createElement("div");
   loadingWheel.classList.add("loading-wheel");
   document.querySelector(".left-col").appendChild(loadingWheel);
@@ -88,10 +86,8 @@ function outputMaker(predictions) {
 
   // find index of the highest 5 values in predictions
   const maxPredictions = findMaxPredictions(predictionsCopy);
- 
-  // old class order
-  /*const classNames = ["Arched_Eyebrows", "Bags_Under_Eyes", "Bangs", "Black_Hair", "Blond_Hair", "Brown_Hair", "Eyeglasses", "Gray_Hair", "Heavy_Makeup", "High_Cheekbones", "Mouth_Slightly_Open", "Mustache", "Narrow_Eyes", "Rosy_Cheeks", "Smiling", "Straight_Hair", "Wavy_Hair", "Wearing_Earrings", "Wearing_Hat", "Wearing_Lipstick", "Wearing_Necklace"];*/
-  // new class order
+
+  // class order
   const classNames = ["Straight Hair", "High Cheekbones", "Mustache", "Wearing Hat", "Wavy Hair", "Eyeglasses", "Rosy Cheeks", "Mouth Slightly Open", "Bags Under Eyes", "Black Hair", "Wearing Lipstick", "Narrow Eyes", "Wearing Earrings", "Wearing Necklace", "Gray Hair", "Arched Eyebrows", "Smiling", "Bangs", "Heavy Makeup", "Brown Hair", "Blond Hair"];
 
 const tableContainer = document.getElementById('table-container');
@@ -115,6 +111,7 @@ const tableContainer = document.getElementById('table-container');
         row.appendChild(classNameCell);
         row.appendChild(percentageCell);
         tbody.appendChild(row);
+
       }
      tableContainer.style.opacity = 1;
      tableContainer.classList.add('show');    

@@ -1,3 +1,4 @@
+<!--login.html-->
 <!DOCTYPE html>
 <html>
    <head>
@@ -35,7 +36,6 @@
       });
       const json = await response.json();
       console.log(json);
-      console.log(usernameOrEmail);
 
       if (response.ok) {
          localStorage.setItem('token', json.cookie);

@@ -1,4 +1,4 @@
-// login.js
+// login.js //
 
 import bcrypt from 'bcrypt';
 import express from 'express';
@@ -57,7 +57,7 @@ function login() {
         throw new Error('Username or password is missing');
       }
       const userId = await loginUser(usernameOrEmail, password);
-      
+
       const jwtToken = userId.token;
       res.cookie('jwt', jwtToken, { httpOnly: true, secure: true });
       res.status(201).json({ success: userId.success, message: 'Login Successful' });
