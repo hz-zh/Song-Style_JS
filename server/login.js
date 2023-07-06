@@ -51,19 +51,13 @@ function login() {
    
    loginApp.post('/login', async (req, res) => {
      try {
-      const { user, password } = req.body;
-      if (!user || !password) {
-        console.log('User: ' + user + ' Password: ' + password);
+      const { password, usernameOrEmail } = req.body;
+      if (!usernameOrEmail || !password) {
+        console.log('User: ' + usernameOrEmail + ' Password: ' + password);
         throw new Error('Username or password is missing');
       }
-      const userId = await loginUser(userOrEmail, password);
-
-      console.log('User: ' + userOrEmail + ' Password: ' + password);
-      console.log('User ID:', userId);
-      console.log('User ID Token:', userId.token);
-      console.log('User ID Success:', userId.success);
-      console.log(':', userId.message);
-
+      const userId = await loginUser(usernameOrEmail, password);
+      
       const jwtToken = userId.token;
       res.cookie('jwt', jwtToken, { httpOnly: true, secure: true });
       res.status(201).json({ success: userId.success, message: 'Login Successful' });

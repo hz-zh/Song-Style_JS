@@ -22,13 +22,10 @@
    const form = document.getElementById('login-form');
 
    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const usernameOrEmail = await form.elements.usernameOrEmail.value;
-        const password = await form.elements.password.value;
-
+      event.preventDefault();
+      const usernameOrEmail = await form.elements.usernameOrEmail.value;
+      const password = await form.elements.password.value;
         
-
       const response = await fetch('http://localhost:5556/login', {
         method: 'POST',
         headers: {
@@ -37,18 +34,17 @@
         body: JSON.stringify({ usernameOrEmail, password })
       });
       const json = await response.json();
-        console.log(json);
-        console.log(usernameOrEmail);
+      console.log(json);
+      console.log(usernameOrEmail);
 
-        if (response.ok) {
-          alert('login successful!');
-          localStorage.setItem('token', json.cookie);
-          window.location.href = '/index.html';
-        } else {
-          alert('login failed! ' + json.message.toString());
-          throw new Error(json.message.toString());
-        }
-      });
+      if (response.ok) {
+         localStorage.setItem('token', json.cookie);
+         window.location.href = './index.html';
+      } else {
+         alert('login failed! Please try again. ' + json.message.toString());
+         throw new Error(json.message.toString());
+      }
+   });
   </script>
 </body>
 </html>
