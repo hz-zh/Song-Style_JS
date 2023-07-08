@@ -17,45 +17,6 @@
  */
 // index.js //
 
-function run() {
-  const tableContainer = document.getElementById('table-container');
-  const imageLoader = document.getElementById('file-upload');
-  const image = document.getElementById('image');
-
-  imageLoader.addEventListener('change', e => {
-    tableContainer.style.opacity = 0;
-    tableContainer.classList.remove('show');
-    image.style.opacity = 0;
-
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        // Load the image
-        //const imageElement = document.getElementById('image');
-        //console.log(image)
-        image.src = reader.result;
-        // image opacity to 100%
-        image.style.opacity = 1;
-        const imageTensor = tf.browser.fromPixels(image).toFloat().resizeNearestNeighbor([128, 128]).div(255.0).expandDims(0);
-        // set the first dimension of imageTensor to -1
-        //imageTensor[0] = -1
-        //console.log(imageTensor.dataSync())
-        // convert imageTensor to an image and render it to the page
-        
-       // tensor = tf.cast(imageTensor, 'float32')
-        //console.log(imageTensor)
-       imageTensor[0] = -1
-       predict(imageTensor)
-      };
-      img.src = reader.result;
-      //image.src = reader.result;
-    };  
-    reader.readAsDataURL(file);
-  }); 
-}
-run();
 
 async function predict(tensor) {
   const loadingWheel = document.createElement("div");
@@ -66,7 +27,6 @@ async function predict(tensor) {
   const model = await tf.loadGraphModel('./image_models/model_02/model.json');
   
   const output = model.predict(tensor, {batchSize: 1}, true);
-  console.log(output)
   let predictionArr = []
   for (let i = 0; i < output.length; i++) {
     predictionArr.push(output[i].dataSync());
@@ -74,7 +34,6 @@ async function predict(tensor) {
   let predictions = []
   for (let i = 0; i < output.length; i++) {
     predictions.push(predictionArr[i][0]);
-    console.log(predictions[i])
   }
   loadingWheel.remove();
   outputMaker(predictions);
@@ -90,7 +49,7 @@ function outputMaker(predictions) {
   // class order
   const classNames = ["Straight Hair", "High Cheekbones", "Mustache", "Wearing Hat", "Wavy Hair", "Eyeglasses", "Rosy Cheeks", "Mouth Slightly Open", "Bags Under Eyes", "Black Hair", "Wearing Lipstick", "Narrow Eyes", "Wearing Earrings", "Wearing Necklace", "Gray Hair", "Arched Eyebrows", "Smiling", "Bangs", "Heavy Makeup", "Brown Hair", "Blond Hair"];
 
-const tableContainer = document.getElementById('table-container');
+  const tableContainer = document.getElementById('table-container');
 
   const outputTable = document.getElementById('outputTable');
       const tbody = outputTable.getElementsByTagName('tbody')[0];
@@ -134,3 +93,90 @@ function findMaxPredictions(arr) {
   }
   return maxPredictions;
 }
+
+async function checkLoginStatus() {
+  const jwt = localStorage.getItem('jwt');
+  if (!jwt) {
+    console.log('No JWT found; user is not logged in');
+    throw new Error('No JWT found; user is not logged in');
+  }
+  else try {
+    console.log(`JWT: ${jwt}`)
+    const response = await fetch('http://localhost:5557/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${jwt}`
+      }
+    });
+    const data = await response.json();
+    if (data.ok) {
+      console.log('User is logged in: ' + data.message)
+      return true;
+    }
+    else {
+      alert('Please login to continue');
+      // un-comment the line below to redirect to login page
+      //window.location.href = './login.html';
+      if (jwt) {
+        localStorage.removeItem('jwt');
+      }
+      throw new Error(data.message)
+    }
+  } catch (error) {
+    console.error('Error checking login status: ', error);
+    return false;
+  }
+}
+
+function run() {
+  const tableContainer = document.getElementById('table-container');
+  const imageLoader = document.getElementById('file-upload');
+  const image = document.getElementById('image');
+  const loginOut = document.getElementById('login-out-button');
+
+  if (!localStorage.getItem('jwt')) {
+    loginOut.textContent = 'Login';
+  } 
+  else if (!checkLoginStatus()) {
+    loginOut.textContent = 'Login';
+  }
+  else {
+    loginOut.textContent = 'Logout';
+  }
+
+  loginOut.addEventListener('click', e => {
+    if (loginOut.textContent === 'Login') {
+      window.location.href = './login.html';
+    }
+    else if (loginOut.textContent === 'Logout') {
+      localStorage.removeItem('jwt');
+      loginOut.textContent = 'Login';
+    }
+  });
+ 
+  imageLoader.addEventListener('change', e => {
+    checkLoginStatus();
+
+    tableContainer.style.opacity = 0;
+    tableContainer.classList.remove('show');
+    image.style.opacity = 0;
+
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        image.src = reader.result;
+        image.style.opacity = 1;
+        const imageTensor = tf.browser.fromPixels(image).toFloat().resizeNearestNeighbor([128, 128]).div(255.0).expandDims(0);
+     
+       imageTensor[0] = -1
+       predict(imageTensor)
+      };
+      img.src = reader.result;
+    };  
+    reader.readAsDataURL(file);
+  }); 
+}
+run();
