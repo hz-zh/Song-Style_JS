@@ -38,7 +38,7 @@
       console.log(json);
 
       if (response.ok) {
-         localStorage.setItem('token', json.cookie);
+         localStorage.setItem('jwt', json.cookie);
          window.location.href = './index.html';
       } else {
          alert('login failed! Please try again. ' + json.message.toString());

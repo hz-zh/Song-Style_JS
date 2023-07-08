@@ -10,7 +10,7 @@ import db from './db.js';
 function genJWT(user) {
    const payload = { id: user._id };
    const jwtToken = jsonwebtoken.sign(payload, 'secret-key', { expiresIn: '1h' });
-    user.jwtToken = jwtToken;
+    user.token = jwtToken;
     return { success: true, token: jwtToken };
 }
 
@@ -56,11 +56,15 @@ function login() {
         console.log('User: ' + usernameOrEmail + ' Password: ' + password);
         throw new Error('Username or password is missing');
       }
-      const userId = await loginUser(usernameOrEmail, password);
+      const user = await loginUser(usernameOrEmail, password);
+      
+      if (!user.success) {
+        throw new Error('Error generating JWT');
+      }
 
-      const jwtToken = userId.token;
+      const jwtToken = user.token;
       res.cookie('jwt', jwtToken, { httpOnly: true, secure: true });
-      res.status(201).json({ success: userId.success, message: 'Login Successful' });
+      res.status(201).json({ success: user.success, message: 'Login Successful' });
       } catch (errr) {
       console.error('Error while logging in: ', errr);
       res.status(500).json({ success: false, message: errr.toString()});

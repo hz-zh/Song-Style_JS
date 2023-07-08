@@ -157,6 +157,11 @@
    color:aqua
 }
 
+/* navigation and button styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+}
 
  nav ul {
    display: flex;
@@ -179,6 +184,27 @@
    text-decoration: none;
    font-size: 20px;
  }
+
+ button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #2196F3;
+    background-image: repeating-linear-gradient(
+      rgba(100, 248, 196, 0.694),
+      rgb(5, 5, 85)); 
+    border-radius: 5px;
+    border:rgb(5, 5, 85) solid 2px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin: 8px 8px 8px;
+ }
+
  
  /* Logo styles */
  .logo {
