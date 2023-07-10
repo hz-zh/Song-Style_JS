@@ -11,6 +11,7 @@ function genJWT(user) {
    const payload = { id: user._id };
    const jwtToken = jsonwebtoken.sign(payload, 'secret-key', { expiresIn: '1h' });
     user.token = jwtToken;
+    delete db.models['User'];
     return { success: true, token: jwtToken };
 }
 
