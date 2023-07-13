@@ -102,7 +102,7 @@ async function checkLoginStatus() {
   }
   else try {
     console.log(`JWT: ${jwt}`)
-    const response = await fetch('http://localhost:5557/verify', {
+    const response = await fetch('https://66.175.236.246:3002/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function run() {
 
   loginOut.addEventListener('click', e => {
     if (loginOut.textContent === 'Login') {
-      window.location.href = './login.html';
+      window.location.href = 'login.html';
     }
     else if (loginOut.textContent === 'Logout') {
       localStorage.removeItem('jwt');

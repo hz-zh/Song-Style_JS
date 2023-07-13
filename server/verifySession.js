@@ -48,7 +48,7 @@ function verifySession() {
    verifySessionApp.use(cors());
    
    
-   verifySessionApp.post('/verify', async (req, res) => {
+   verifySessionApp.post('/ver', async (req, res) => {
 		const token = req.headers.Authorization;
 
 		try {

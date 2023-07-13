@@ -1,0 +1,9 @@
+node_modules/
+*.env
+*.private
+*.key
+*.cer
+*.pem
+*.pfx
+*.p12
+

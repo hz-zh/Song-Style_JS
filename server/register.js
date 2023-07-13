@@ -47,7 +47,7 @@ const createUser = async (username, password, email) => {
   regApp.use(cors());
   
   
-  regApp.post('/register', async (req, res) => {
+  regApp.post('/reg', async (req, res) => {
     try {
       const { username, password, email } = req.body;
       const encryptPassword = await bcrypt.hash(password, 10);

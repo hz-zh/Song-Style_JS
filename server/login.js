@@ -50,7 +50,7 @@ function login() {
    loginApp.use(cors());
    
    
-   loginApp.post('/login', async (req, res) => {
+   loginApp.post('/log', async (req, res) => {
      try {
       const { password, usernameOrEmail } = req.body;
       if (!usernameOrEmail || !password) {
